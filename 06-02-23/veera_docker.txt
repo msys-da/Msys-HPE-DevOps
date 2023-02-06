@@ -1,0 +1,214 @@
+File Managements:
+1.How to create a directory? 
+
+mkdir directoryname
+
+2.How to create a multiple directory in a single command ? 
+mkdir {dir1,dir2,dir3}
+
+3.How to change the permission of directory from 755 to 777 ?
+        Chmod  777 filename 
+4.How to change the user and group permission to the directory ?
+To add permission for user : chmod u+rwx filename
+To delete permissions :- chmod u-rx filename 
+To add permissions for group:- chmod g+rwx filename 
+To delete permission for group:- chmod g-r filename 
+
+
+5.How to rename the directory ?
+        mv  old name new name
+       6. What is the command use to list all the folders and files in the directory (It need to show      create date and time, file and user, group permission, size ) 
+                Ls-lt
+        7. How to create a file ? 
+          Vi file name or touch to know the time stamp 
+
+       8. How to save and exist the quit ?
+           :wq!
+ 9. How to display the content in the file ? 
+           Cat file name 
+10. How to copy the files from one folder to another ? 
+         Cp sourcefile destinationfile path
+
+11. How to move the files from one folder to another ?
+           Mv sourcefile destinationfilepath
+            
+ 12. How to rename the file ?
+          Mv old name new name
+
+ 13. How to delete the file ?
+      rm file name 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+                          *******DOCKER*******
+
+Finding the version
+One of the first things you want to know is how to find the installed docker version.
+
+------>.docker --version
+
+Downloading image
+---->docker pull name of the image 
+
+Images
+List all the docker images pulled on the system with image details such as TAG/IMAGE ID/SIZE etc.
+----->docker images
+
+Run
+Run the docker image mentioned in the command. This command will create a docker container in which the Apache HTTP server will run.
+----> docker run -it -d httpd
+
+What’s running?
+ps lists all the docker containers are running with container details.
+-----> docker ps
+
+ps -a
+List all the docker containers running/exited/stopped with container details.
+----> docker ps -a
+
+Exec
+Access the docker container and run commands inside the container. I am accessing the apache server container in this example.
+
+-----> docker exec -it 09ca6feb6efc bash
+
+Removing container
+Remove the docker container with container id mentioned in the command.
+------> docker rm 9b6343d3b5a0
+
+Removing image
+Remove the docker image with the docker image id mentioned in the command
+----> docker rmi fce289e99eb9
+
+ Restart Docker
+Restart the docker container with container id mentioned in the command.
+----> docker restart 09ca6feb6efc
+
+
+Stopping Docker
+Stop a container with container id mentioned in the command.
+-----> docker stop 09ca6feb6efc
+
+Starting Docker
+This command in docker starts the docker container with container id mentioned in the command.
+----> docker start 09ca6feb6efc
+
+Kill
+Stop the docker container immediately. Docker stop command stops the container gracefully, that’s the difference between a kill and stop commands.
+----> docker kill 09ca6feb6efc
+
+Login
+Login into docker hub. You will be asked your docker hub credentials to log in.
+----> docker login
+
+Push
+Upload a docker image with the image name mentioned in the command on the dockerhub.
+
+-----> docker push /httpd_image
+
+
+Docker network
+The following command in docker lists the details of all the network in the cluster.
+-----> docker network ls
+
+Docker info
+Get detailed information about docker installed on the system including the kernel version, number of containers and images, etc.
+-----> docker info
+
+Checking logs
+Show the logs of the docker container with contained id mentioned in the command.
+-----> docker logs 09ca6feb6efc
+
+Creating volume
+Create a volume which docker container will use to store data.
+------>docker volume create
+
+Logout
+Logging out from dockerhub.
+----> docker logout
+
+
+                                 DOCKER-COMPOSE FILE:----
+
+command:--                                            DESCRIPTION:--
+
+FROM  image                                           base image fro the build
+MAINTAINER email                                      name of the maintainer (metadata)
+COPY path dst                                         copy path from the context into the comatiner at location destination
+ADD  src dst                                          same as COPY but untar archives and accepts http urls
+RUN args                                              run an arbitrary command inside the conatiner
+USER name                                             set the default name 
+WORKDIR path                                          default the working directory
+CMD  args                                             default command 
+ENV name value                                        set the envioronment variables
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------                              
+
+                                FROM golang:1.8   
+
+                                RUN mkdir /go/src/demo-cli
+
+                                WORKDIR /go/src/demo-cli
+
+                                COPY . ./
+
+                               ENV TEST_ENV_ITEM=dockerfile
+                               ENV ANOTHER_ENV_ITEM="more from dockerfile"
+
+                               RUN go get ./... && go build
+                  
+                               ENTRYPOINT ["./demo-cli"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

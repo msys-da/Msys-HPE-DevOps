@@ -1,0 +1,80 @@
+git checkout:
+	Used to discard unstaged changes in the tracked files of working directory. this commmand is applicable only for tracked files.
+	checkout command is not applicable for untracked files.
+	tracked file: atleast one file must be added to staging area or Local repo then only it is known as tracked files.
+	Ex: git checkout -- <file-name>
+	
+git reset:
+	To remove changes from staging area
+	To undo commits at repository level
+	
+	To remove changes from staging area:
+		git reset <file name>
+		
+		git ls-files: this command will show the files in the staging area.
+		
+		git status: this shows whether
+		
+	To undo commits at repository level:
+		git reset <mode> <commit_id>
+		mode: mode will decide whether the changes are going to remove from staging area and working directory or not.
+		below are the 3 types of modes
+		--mixed
+		--soft
+		--hard
+		
+		git log --oneline: this will show you how many commits we have done in the repository.
+		latest commit is always referred with master or HEAD
+		
+		reset with the --mixed mode:
+			default mode. To discard commits in the local repository and to discard changes in staging area we should use this.
+			it will not touch working directory
+			if we want to delete the last commit, we have to specify the commit_id of the second last commit.
+			Ex: git reset --mixed <commit_id>
+			
+		reset with the --soft mode:
+			To discard commits in the local repository only.
+			it will not touch working directory and staging area.
+			Ex: git reset --soft <commit_id>
+			note: whatever commit_id we specify all the commits above that will be discarded, we can't discard indivitual commit in between.
+			
+		reset with the --hard mode:
+			everything will be removed from repo, staging and working area.
+			we will not have a revert option.
+			
+
+git branching:
+	master is a main branch. Child branch will inherit all the files and commits from the main branch as soon as it is created. 
+	using the git branching concept parallel development is possible. without disturbing the main code we can create multiple branches
+	we can implement whatever feature allocated, after completion of the feature we can merge that code into the main branch or we
+	can directly push the code into the remote repository. each branch in the git are isolated. 
+	
+git branching commands:
+	To view the list of available branches in our repository: git branch or git status
+	note: * indicates the active branch
+	To create a new branch: git branch <branchname>
+	Switch to from one branch to another branch: git checkout <branch_name>
+	create and switch to that branch at the same time: git checkout -b <newbranch_name>
+	
+	Whatever files and commits available in the master branch, will be inherited to the child branches at the branch creation time.
+	whatever files and commits happens in the master branch, after the child branch creation, those will not be inherited to child branch.
+	whatver files and cmmits happens in the child branch will not be impacted in the master brach, as the child branch is completely isolated.
+	
+	
+Merging:
+	Source code is maintained in the master branch. suppose if we want to add some new feature or bug fix, without disturbing the existing
+	branch, we will create another sub-branch, we will do the development in the sub-branch. once the development is completed we will
+	combine that branch with the master branch. 
+	2 types of merging concepts:
+		1. fast-forward merge: No further commits in the master branch, but child branch will have further files and commits. Changes
+			are done only in the child branch, we dnt make any change in the master branch. then we will combine it with master branch, 
+			so there will not be any conflicts. After merging we dn't do any commits in master branch. Latest commit will be the last commit
+			of child branch.
+		2. Three-way merge: here parallely master branch development will also be moving on with development of child branch, there may be
+			conflicts while merging. while we merge here, git creates a merge commit. After creating the child branch, if any changes
+			are made in the master branch, then merge commit araises. this will be latest commit.
+			Here conflict araises if we make changes like update, deletion, insertion in the existing file, which was inherited 
+			from master branch.
+		To perform merging:	
+		If we want to merge the child branch, the command always needs to be executed through the master branch.
+		command --> Ex: git merge <branch_name>
