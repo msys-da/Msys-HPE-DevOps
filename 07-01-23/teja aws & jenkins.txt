@@ -1,0 +1,222 @@
+   AWS QUESTIONS
+
+
+1.When preparing for a compliance assessment of your system built inside of AWS. what are threebest-practices for you to prepare for anaudit?
+
+A. Gather evidence of your IT operational controls
+B. Request and obtain applicable third-party audited AWS compliance reports and certifications
+C. Request and obtain a compliance and security tour of an AWS data center for a
+pre-assessment security review
+D. Request and obtain approval from AWS to perform relevant network scans and indepth penetration tests of your system's Instances and endpoints
+E. Schedule meetings with AWS's third-party auditors to provide evidence of AWS compliancethat maps to your control objectives
+
+ ans:B,D,E
+
+
+2.You have started a new job and are reviewing your company's infrastructure on AWS You noticeone web application where they have an Elastic Load Balancer (&B) in front of web instances in anAuto Scaling Group When you check the metrics for the ELB in CloudWatch you see four healthyinstances In Availability Zone (AZ) A and zero in AZ B There are zero unhealthy instances.What do you need to fix to balance the instances across AZs?
+
+ ans: Make sure Auto Scaling is configured to launch in both AZs
+
+
+3.You have been asked to leverage Amazon VPC BC2 and SOS to implement an application thatsubmits and receives millions of messages per second to a message queue. You want to ensureyour application has sufficient bandwidth between your EC2 instances and SQS. Which option will provide (he most scalable solution for communicating between the application and SOS?
+A. Ensure the application instances are properly configured with an Elastic Load Balancer
+B. Ensure the application instances are launched in private subnets with the EBS-optimized option enabled
+C. Ensure the application instances are launched in public subnets with the associate-publicIP-address=true option enabled
+D. Launch application instances in private subnets with an Auto Scaling group and AutoScaling triggers configured to watch the SOS queue size
+
+ans: c
+
+
+4.You have identified network throughput as a bottleneck on your ml small EC2 instance when uploading data Into Amazon S3 In the same region.How do you remedy this situation?
+A. Add an additional ENI
+B. Change to a larger Instance
+C. Use DirectConnect between EC2 and S3
+D. Use EBS PIOPS on the local volume
+
+ans:change to a large instances
+
+5.When attached to an Amazon VPC which two components provide connectivity with externalnetworks? Choose 2 answers
+A. Elastic IPS (EIP)
+B. NAT Gateway (NAT)
+C. Internet Gateway {IGW)
+D. Virtual Private Gateway (VGW)
+
+Ans: C,D
+
+6.Your application currently leverages AWS Auto Scaling to grow and shrink as load Increases'decreases and has been performing well Your marketing team expects a steady ramp up intraffic to follow an upcoming campaign that will result in a 20x growth in traffic over 4 weeks Yourforecast for the approximate number of Amazon EC2 instances necessary to meet the peak demand is 175.What should you do to avoid potential service disruptions during the ramp up in traffic?
+
+A. Ensure that you have pre-allocated 175 Elastic IP addresses so that each server will be ableto obtain one as it launches
+B. Check the service limits in Trusted Advisor and adjust as necessary so the forecastedcount remains within limits.
+C. Change your Auto Scaling configuration to set a desired capacity of 175 prior to the launch of the marketing campaign
+D. Pre-warm your Elastic Load Balancer to match the requests per second anticipated during peak demand prior to the marketing campaign
+
+ans:d
+
+7.You have an Auto Scaling group associated with an Elastic Load Balancer (ELB). You have noticed that instances launched via the Auto Scaling group are being marked unhealthy due tan ELB health check, but these unhealthy instances are not being terminatedWhat do you need to do to ensure trial instances marked unhealthy by the ELB will be terminated and replaced?
+
+A. Change the thresholds set on the Auto Scaling group health check
+B. Add an Elastic Load Balancing health check to your Auto Scaling group
+C. Increase the value for the Health check interval set on the Elastic Load Balancer
+D. Change the health check set on the Elastic Load Balancer to use TCP rather than HTTP checks
+
+ans:b
+
+
+8.Which two AWS services provide out-of-the-box user configurable automatic backup-as-a-service and backup rotation options? Choose 2 answers
+
+A. Amazon S3
+B. Amazon RDS
+C. Amazon EBS
+D. Amazon Red shift
+
+ ans: c,d
+
+9.An organization has configured a VPC with an Internet Gateway (IGW). pairs of public and privatesubnets (each with one subnet per Availability Zone), and an Elastic Load Balancer (ELB)configured to use the public subnets The application s web tier leverages the ELB. Auto Scalingand a mum-AZ RDS database instance The organization would like to eliminate any potentialsingle points ft failure in this design.What step should you take to achieve this organization's objective?
+
+
+A. Nothing, there are no single points of failure in this architecture.
+B. Create and attach a second IGW to provide redundant internet connectivity.
+C. Create and configure a second Elastic Load Balancer to provide a redundant load balancer.
+D. Create a second multi-AZ RDS instance in another Availability Zone and configurereplication to provide a redundant database.
+
+ans:c
+
+10. Which of the following are characteristics of Amazon VPC subnets?Choose 2 answers
+
+A. Each subnet maps to a single Availability Zone
+B. A CIDR block mask of /25 is the smallest range supported
+C. Instances in a private subnet can communicate with the internet only if they have an Elastic IP.
+D. By default, all subnets can route between each other, whether they are private or public
+E. V Each subnet spans at least 2 Availability zones to provide a high-availability environment
+
+
+ans:c,e
+
+
+
+
+
+
+
+
+
+
+
+Beginner Level Jenkins Interview Questions
+
+
+
+1. What is Jenkins?
+Jenkins is an open-source free automation tool used to build and test software projects. The tool makes it painless for developers to integrate changes to the project. Jenkins' primary focus is to keep track of the version control system and initiate and monitor a build system if there are any changes. It keeps an eye on the entire process and provides reports and notifications to alert.
+
+Some typical reasons as to why Jenkins is so widely used are:
+
+Developers and testers use Jenkins to detect defects in the software development lifecycle and automate the testing of builds. They use it to continuously monitor the code in real-time and integrate changes into the build.Jenkins as it turns out, is a great fit for building a CI/CD pipeline because of its plugin-capabilities, and simple-to-use nature.
+
+2. What are the features of Jenkins?
+Some of the crucial features of Jenkins are the following:
+
+1.It is a free and open-source automation tool
+2.Jenkins provides a vast number of plugins
+3.It is easy to set up and install on multiple operating systems
+4.Provides pipeline support
+5.Fast release cycles 
+6.Easy upgrades
+
+
+3. What is Groovy in Jenkins?
+
+Apache Groovy is a dynamic object-oriented programming language used as a scripting language for Java platforms. Groovy is used to orchestrate the Jenkins pipeline and enables different teams to contribute to the work in different languages. Groovy's syntax is very similar to that of Java, making it more seamless with the Java interface. The language has several features like Java compatibility and Development support.
+
+
+4. How do you install Jenkins?
+Follow the steps mentioned below to install Jenkins:
+
+Install Java 
+Install Apache Tomcat Server
+Download Jenkins war File
+Deploy Jenkins war File
+
+
+5. Which commands can be used to begin Jenkins?
+
+
+Open the command prompt
+After the command prompt opens, browse to the directory where Jenkins war is present
+Then run the following command:
+D:\>Java -jar Jenkins.war
+
+6.What is "Continuous Integration" with reference to Jenkins?
+
+ans: Continuous Integration is a development practice where the codes can be integrated into a shared repository. The practice uses automated verifications for the early detection of code problems. Continuous Integrationtriggers the build to find and identify bugs present in the code.It adds consistency to the build process.It’s a means to build things faster and prevents broken code.
+
+
+7.What is a CI/CD pipeline?
+ 
+ans: CI/CD Pipeline or Continuous Integration/ Continuous Delivery is considered the DevOps approach's backbone. The pipeline is responsible for building codes, running tests, and deploying new software versions.
+
+8.What is a Jenkins pipeline?
+ans:
+
+   1.The pipeline represents the continuous delivery and continuous integration of all the jobs in the SDLC and DevOps life cycle. 
+    2.The Jenkins pipeline is a set of plugins that support implementation and integration of continuous delivery pipelines into Jenkins. It connects this pipeline in a particular format by Jenkins.
+     3.The Jenkins pipeline solves several problems like the maintenance of thousands of jobs and maintaining deployment with needing to resort to other powerful methods.
+
+
+9.Name the three different types of pipelines in Jenkins?
+
+Ans:
+
+The three different types of Jenkins pipelines are:
+
+    1.CI/CD pipeline 
+    2.Scripted pipeline
+    3.Declarative pipeline
+
+
+10. What are the requirements for using Jenkins?
+
+
+To use Jenkins, you require the following:
+
+  1.A source code repository that can be accessed, for example, a Git repository.
+  2.A build script, for example, a Maven script.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

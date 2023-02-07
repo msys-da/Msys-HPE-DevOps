@@ -1,0 +1,41 @@
+merge conflicts: If conflict araises them merge is not possible. we have to manually resolve the changes. 
+how to resolve the conflict manually:
+	we need to open the file which have conflict, make the changes then try doing merge.
+	To delete the branch: git branch -d <branch_name> 
+	
+git rebase:
+	In three way merge, new merge will be created, merge commit have multiple parent commits. Need to resolve the conflicts there. To overcome
+	above we have rebase command, Rebase follows only fast-forward merge, in rebase internally we create feature branches, and we create 
+	multiple commits in feature branches, instead of merging feature branch directly into the master branch, first we will do rebase
+	and then we will merge it. In rebase there will not be merge commit, We will add the feature branch on top of master branch. then we 
+	will merge the feature branch with master branch. 
+	2 steps involved in rebase:
+		1.rebase the feature branch on top of the master branch: her new commit objects will be created from the feature branch commits.
+		ex: git rebase master
+		2.merge feature branch into master branch: 
+		note: in rebase it is difficult to findout what features belongs to which branch.
+		rebase can be used within the local environment. we should not use the rebase for the remote repo.
+		in rebase history is not maintained, bcs new objects are created, original features are discarded.
+		rebase follows linear approach, means every commit is having single parent commit.
+		
+		
+		
+GitHub:
+	git is a simple tool, which we can install in our local machine. which will act as a local repository. where as Github is a Remote Repo. 
+	It is a hosting service for git repositories. Basically Github is a service, which will host our all repositories Remotely. 
+	And we can share those repositories within the team or globally.
+
+	Overall process: 
+		whatever files we are creating inside the project will be bydefault available in the working directory. from there we add all 
+		those files to staging, from staging we commit all the files into local Repository. Once files are available at local repo
+		then it is ready to push into the remote repo. In GitHub we do 3 main operations, i.e. git clone, git pull, git push
+		git clone: Whatever reposiories already available in the remote repository, which we can get into our local machine through cloning.
+		git push: sending the available files from local repo to remote repo.
+		git pull: This command will pull all the latest files or changes which are already available in the remote repository into local repo.
+		difference between git clone and git pull
+		In git clone we will not have any repository in the local, we clone that remote repo to local, but in the git pull we will have a
+		local repo, if any modificatios made to that repo remotely, then we will try to pull those changes from remote to local.
+		
+		git clone --> git clone 'githubURL'
+		git push --> git push origin main
+		git pull --> git pusll origin main
