@@ -1,0 +1,85 @@
+AWS Access Control and Networking:
+		Regions are geographically seperated from each other. we are actually charged based on usage, so the services are on demand and 
+		then the amount you use is metered and billed to you. 
+		
+fundamentals of pricing on AWS:
+	There is 3 principle areas involved in pricing the service.
+		1. compute: where you pay the amount of resource and the duration it's actually running. say for ex if we launch a virtual server
+		it will have some CPU and RAM and some storage and the quantity and the time is what you pay for. So how long it is rnning and how
+		much of those resources did u assign to that virtual server.
+		2. storage: you pay for the quantity of data you stored or how much it actually allocated. 
+		3. Outbound data transfer: That's the quantity of data that gets transferred out of AWS. tranferring data into aws has no charges.
+		
+	AWS Global Infrastructure: we regions, within regions we have data centers they are known as AZ. each AZ is actually one or more 
+	data centers, and there will be atleast 2 AZs in any region. So that gives the ability to create highly available applications
+	and split them across the AZs. Within the avaiability zones we create subnets, that is where we create the resources. These are subnets
+	into which we deploy our resources and they get IP addresses and they are either available publicly or privately. 
+	Using AWS Outposts we can run the AWS services within on premises data center.
+	AWS local zone: they also have the ability to create virtual private clouds within them, the idea of local zones is, it gets resources
+	closer to the end users and that lowers the latency.
+	AWS wavelength zone: This enables you to get your applications closer to the 5G infrastructure, so that you can lower the latency
+	to mobile devices that are using 5G. there is a connectivity back to a region so that you can connect to resources and other services
+	that are not available in the wavelength zone.
+	
+	
+IAM overview:
+	Identity and Access Management service that can be used to actually authenticate and get authorised to access the resources. there are
+	different ways to access the IAM, like through console, where you can create user accounts and roles and groups. we can use CLI and API.
+	In IAM we have user, role, Federated user, Application
+	User: That's just like a any user account on any system. we can log in with a username and a password.
+	Role: It is used for delegation so that the services can gain access to other services.
+	Federated user: they  are users come from another source. Ex: we have an account with google or amazon or fb and you can log in there
+	and gain access to AWS resources. 
+	Application: You may also have an application that needs to access the resources. so applications can also be identities in IAM 
+	
+	IAM principals must be authenticated to send requests. So user is an example of a principal and the user has to get authenticated.
+	That means a password or someother way of proving that you are who you say you are. Principal is a person or application that can make
+	a request for an action or operation on an AWS resources. 
+	
+	Within IAM we have policies. we have identity based policies and resource based policies and these define the permissions that we want
+	assign to a pricipal when gaining access to a resource. AWS determines whether to authorize the request of a user based on what
+	is defined in these policies. It is an allow or deny. 
+	
+	Different methods of authentication:
+		1. user will have a username and password and he can use them to access the management console and perform operations against 
+		AWS resources.
+		2. we have a CLI and API, with both of these we can access the resources through IAM by using access key ID and secret access key.
+		And using the access key, we can actually gain access to the AWS API and ultimately the resources on AWS. Access keys are used for 
+		programatic access. Either running commands on CLI or using API, which is where we are executing code.
+		
+		
+Virtual Private Cloud (VPC):
+	Is a place in which we deploy our resources, It is a vitual data center in the cloud. 
+	VPC is a logically isolated portion of the cloud within a region. and it's dedicated to our account so you can put your own resources in 
+	there. thats going to be private and not seen by anyone else who is launching their own resources on AWS. We have AZs within the regions. 
+	Subnets are within AZs. We can launch our resources within the subnets. An Internet Gateway is used to connect to the internet. and it also 
+	allows the access from the internet into public subnets as well. Say we can run a public web server that can be utilized by people who 
+	are using the internet. 
+	
+	Routing within the VPC and outside the VPC:
+		The route table is used to configure the VPC router. All of the subnets in the VPC will have a block of addresses come from the
+		overall block of VPC. the target is local, that tells the router that any traffic destined to an address within that range should stay 
+		within the VPC. Any Other addresses are forwarded to the Internet gateway. 
+		
+		we can have a multiple VPCs within a region. We will have default VPC, if we want we can create more VPC. VPC cannot span across
+		regions. Each VPC has a different block of IP addresses. that is known as CIDR block and stands for Classless Interdomain Routing.
+		Each subnet has a block of addresses from CIDR block.  
+		
+		Some services in AWS can be considered as public or private. within the VPC we have variety of resources. those are private. private
+		services can have public IP addresses, and those can be accessed through the internet. Some of the services have public addresses
+		only, they can be accessed from the internet. Dynamo DB, s3, Route53 DNS services. we connect to public services from a VPC and from
+		the internet as well. All the AWS services can be controlled and managed using API's from the internet.
+		
+	
+Security groups and network ACLs:
+	To protect the access to the resources over a network connection, we use SG and Network ACLs. 
+	Statefull: Statefull firewall will allow the return traffic automatically. 
+	Stateless: Stateless firewall will not allow the return traffic automatically, as it doesn't remember.
+	
+	network ACLs: These are assigned to the Subnets within the VPC, NACLs apply only to the traffic that is entering or exiting the Subnet.
+	If 2 instances from different subnets needs communicate then NACLs of both the subnets need to let the traffic go out and enter into 
+	the subnets. If 2 instances of same subnets then NACLs is not involved. NACLs are stateless firewalls, so we need to have rule for both the 
+	directions of traffic. NACLs supports allow and deny rule.
+	
+	Security groups: Security groups are stateful firewall, If the traffic is allowed, then the return traffic is also allowed. SG apply
+	at Instance level. Security groups supports allow rules only. Everythin is denied untill u allow it. 

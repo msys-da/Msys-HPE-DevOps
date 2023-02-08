@@ -1,0 +1,166 @@
+
+____________________________________________________________________________
+settings and provider block
+Create VPC 
+create subnet
+create internet gateway
+create route table
+create route in route table for internet access
+associate route table with subnet
+create SG in the VPC with port 80, 22
+create EC2 with user dtaa
+
+_Manual steps_______________________________________________________________________________
+create VPC:--
+
+Name:-- manual vpc
+cidr --- 10.0.0.0/16
+create VPC..
+_________________________________________________________________________________
+create subnets:--
+
+vpc : manual vpc
+subnet name: public subnet
+zone: us -east
+cidr: 10.0.1.0/24
+create subnet
+_____________________________________________________________________________________
+
+Create internet gateway: --
+
+name : manual-vpc-igw
+create igw
+after creating need to attach with vpc.
+________________________________________________________________
+Create route table:--
+
+route table name: manual-rt1
+vpc: manual vpc
+create
+goto route table --> routes --> edit routes --> add entire internet 0.0.0.0/0 ; target ---> IGW -manual-rt1( route table which is created) --> save routes..
+________________________________________________________________________________________________________________________________________________
+
+Associate the route table with subnet: 
+
+select route table which is created and subnet association --> edit subnet association --> select the created subnet --> save..
+
+____________________________________________________________________________________________________________________________
+SG creation:--
+
+sG--> create sg --> manual-temp --> description (ssh and http) --> vpc (created vpc) --> inbound(add rule) ssh tcp 22 and 0.0.0.0/0 , http tcp 80 and 0.0.0.0/0
+
+create sg..
+
+_______________________________________________________________________________________________
+
+
+Main.tf
+
+# Terraform Block
+terraform {
+  required_version = ">= 0.14.6"
+  required_providers {
+    aws = { 
+      source = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
+# Provider Block
+provider "aws" {
+  region = "us-east-1"
+  profile = "default"
+}
+
+
+VPC.tf
+
+resource "aws_vpc" "vpc1" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    "name" = "vpc-dev"
+  }
+}
+resource "aws_subnet" "vpc1-subnet-1" {
+  vpc_id = aws_vpc.vpc1.id
+  cidr_block = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+  map_public_ip_on_launch = true //if specify this subnet to perticular ec2 that time with in the range only ip address will be assign
+}
+resource "aws_internet_gateway" "vpc-igw" {
+  vpc_id = aws_vpc.vpc1.id
+}
+resource "aws_route_table" "vpc-public-route-table" {
+  vpc_id = aws_vpc.vpc1.id
+}
+resource "aws_route" "vpc-public-route" {
+  route_table_id = aws_route_table.vpc-public-route-table.id 
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.vpc-igw.id 
+}
+# Resource-6: Associate the Route Table with the Subnet
+resource "aws_route_table_association" "vpc-public-route-table-associate" {
+  route_table_id = aws_route_table.vpc-public-route-table.id 
+  subnet_id = aws_subnet.vpc1-subnet-1.id
+} 
+
+# Resource-7: Create Security Group
+resource "aws_security_group" "vpc-sg" {
+  name = "vpc-default-sg"
+  vpc_id = aws_vpc.vpc1.id
+  description = "Dev VPC Default Security Group"
+
+  ingress {
+    description = "Allow Port 22"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow Port 80"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "allow all"
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "Allow all ip and ports outboun"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
+
+
+Ec2.tf:--
+resource "aws_instance" "my-vm1" {
+  ami = "ami-0aa7d40eeae50c9a9" # Amazon Linux
+  instance_type = "t2.micro"
+  subnet_id = aws_subnet.vpc1-subnet-1.id
+  key_name = "shr_terr"
+  user_data = <<-EOF
+    #!/bin/bash
+    sudo yum update -y
+    sudo yum install httpd -y
+    sudo systemctl enable httpd
+    sudo systemctl start httpd
+    echo "<h1>Welcome to Shravan IT technologies</h1>" > /var/www/html/index.html
+    EOF  
+  vpc_security_group_ids = [ aws_security_group.vpc-sg.id ]
+}
+
+
